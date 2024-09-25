@@ -27,7 +27,15 @@ export class CarService {
     getAll = async (): Promise<any> => {
         try {
             const query = new ApiFeature('cars').getQuery()
-            return await this.pgService.fetchData('SELECT * FROM car')
+            console.log(query)
+            
+            const data = await this.pgService.fetchData(query.queryString)
+
+            return {
+                data, 
+                limit: query.limit,
+                page: query.page,
+            }
         } catch (error) {
             throw new InternalServerErrorException(`Error: ${error.message}`)
         }
@@ -35,7 +43,7 @@ export class CarService {
 
     update = async (id: number, carInterface: IUpdateCarRequest): Promise<any> => {
         try {
-            await this.pgService.fetchData(`UPDATE Car SET model = $1, daily_price =  $2, fuel_type = $3, WHERE id = $4`,
+            await this.pgService.fetchData(`UPDATE Car SET model = $1, price =  $2, fuel_type = $3, WHERE id = $4`,
                 carInterface?.model,
                 carInterface?.price,
                 carInterface?.fuel_type,

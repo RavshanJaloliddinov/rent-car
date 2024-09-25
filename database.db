@@ -1,0 +1,6 @@
+CREATE TABLE cars (
+  id SERIAL PRIMARY KEY,
+  price INT,
+  model VARCHAR(255),
+  fuel_type VARCHAR(255)
+);
