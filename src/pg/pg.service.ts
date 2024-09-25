@@ -8,7 +8,7 @@ export class PgService implements OnModuleInit , OnModuleDestroy {
         this.client = new Client({
             user: 'postgres',
             host: 'localhost',
-            database: 'RentCar',
+            database: 'lms',
             password: '1111',
             port: 5432,
         })

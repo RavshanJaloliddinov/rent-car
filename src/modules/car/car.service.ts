@@ -2,6 +2,7 @@ import { Injectable, InternalServerErrorException } from "@nestjs/common";
 import { PgService } from "src/pg";
 import { ICreateCarRequest } from "./interfaces/create-car.interface";
 import { IUpdateCarRequest } from "./interfaces/update-car.interface";
+import { ApiFeature } from "src/utils";
 
 @Injectable()
 export class CarService {
@@ -25,6 +26,7 @@ export class CarService {
 
     getAll = async (): Promise<any> => {
         try {
+            const query = new ApiFeature('cars').getQuery()
             return await this.pgService.fetchData('SELECT * FROM car')
         } catch (error) {
             throw new InternalServerErrorException(`Error: ${error.message}`)
